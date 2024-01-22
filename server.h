@@ -82,7 +82,7 @@ public:
             {
                 //std::string utf8error=error.to_string();
                 //std::cout<<"SERVER WRITE ERROR: "<<utf8error<<std::endl;
-                else std::cout<<"Error:  "<<error.message()<<std::endl;
+                std::cout<<"Error:  "<<error.message()<<std::endl;
             }
         });
     }
