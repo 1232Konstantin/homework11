@@ -70,21 +70,21 @@ public:
 
     }
 
-    void doWrite(std::string &str)
+
+
+ void doWrite(std::string& str)
     {
         auto self(shared_from_this());
-        boost::asio::write(socket_m, boost::asio::buffer(str));
-        //auto tstr=std::move(str);
-        //async_write(socket_m, buffer(str), [](boost::system::error_code error, std::size_t)
-        //{
-         //   if (error)
-         //   {
-         //       std::string utf8error=error.to_string();
-         //       std::cout<<"SERVER WRITE ERROR: "<<utf8error<<std::endl;
-         //   }
-       // });
+        auto smart= std::make_shared<std::string>(std::move(str));
+        async_write(socket_m, buffer(*smart), [this, self, smart](boost::system::error_code error, std::size_t)
+        {
+            if (error)
+            {
+                std::string utf8error=error.to_string();
+                std::cout<<"SERVER WRITE ERROR: "<<utf8error<<std::endl;
+            }
+        });
     }
-
 
 };
 
